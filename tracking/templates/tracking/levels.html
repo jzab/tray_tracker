@@ -1,0 +1,9 @@
+{% if level_list %}
+	<ul>
+	{% for level in level_list %}
+		<li><a href="/tracking/{{ level.unit.farm.id }}/{{ level.unit.id }}/{{ level.id }}">{{ level.level_rank}}</a>
+</li>
+	{% endfor %}
+{% else %}
+	<p>No levels are available</p>
+{% endif %}

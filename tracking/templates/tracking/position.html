@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Flats</title>
+<h1 align="center">Flats</h1>
+<style>
+table, th, td {
+	border: 1px solid black;
+	text-align: center;
+	font-size: 12pt;
+}
+</style>
+</head>
+
+<body>
+{% if position_data %}
+	<table>
+		<tr>
+			<th>Position</th>
+			<th>Kind</th>
+			<th>Variety</th>
+			<th>Seed Volume (g)</th>
+			<th>Supplier</th>
+			<th>Date Seeded</th>
+			<th>Date Uncovered</th>
+			<th>Date Harvested</th>
+			<th>Harvest?</th>
+		</tr>
+		{% for position in position_data %}
+			<tr>
+				<td>{{ position.tray_tag }}</td>
+				<td>{{ position.kind }}</td>
+				<td>{{ position.variety }}</td>
+				<td>{{ position.seed_volume }}</td>
+				<td>{{ position.supplier }}</td>
+				<td>{{ position.date_seeded }}</td>
+				<td>{{ position.date_uncovered }}</td>
+				<td>{{ position.date_harvested }}</td>
+				<td><input type="button" onclick="alert('Harvest?')" value="Harvest"></td>
+			</tr>
+		{% endfor %}
+	</table>
+{% else %}
+	<p>No positions are available.</p>
+{% endif %}
+
+<h3>Add Flat</h3>
+<div id="addflat">
+<form action="/" method="post" name="flatform">
+	<table class="flat_form_table">
+		<tr><th><label for="id_addflat">Postion</label></th><td><textarea cols="20" id="id_addflat" name="flat" rows="1"></textarea></td></tr>
+		<tr><th><label for="id_addflat">Kind</label></th><td><textarea cols="20" id="id_addflat" name="flat" rows="1"></textarea></td></tr>
+		<tr><th><label for="id_addflat">Variety</label></th><td><textarea cols="20" id="id_addflat" name="flat" rows="1"></textarea></td></tr>
+		<tr><th><label for="id_addflat">Seed Volume</label></th><td><textarea cols="20" id="id_addflat" name="flat" rows="1"></textarea></td></tr>
+		<tr><th><label for="id_addflat">Supplier</label></th><td><textarea cols="20" id="id_addflat" name="flat" rows="1"></textarea></td></tr>
+		<tr><th><label for="id_addflat">Date Seeded</label></th><td><input type="date" name="date_seededed"></td></tr>
+		<tr><th><label for="id_addflat">Date Uncovered</label></th><td><input type="date" name="date_uncovered"></td></tr>
+		<tr><th><label for="id_addflat">Date of Harvest</label></th><td><input type="date" name="date_harvested"></td></tr>
+		<tr><th><input type="submit" value="Insert Flat"></th></tr>
+	</table>
+	</form>
+</div>
+</body>
+</html>

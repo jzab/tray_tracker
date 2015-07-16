@@ -1,0 +1,14 @@
+{% extends "position.html" %}
+
+{% block title %}Insert Flat{% endblock %}
+
+{% block add_flat %}
+<h3>I'm here</h3>
+<form method='post' action="{% url tracking.views.add_flat %}">
+	<table cellpadding="0">
+		{{ form.as_table }}
+	</table>
+	<input type="submit" value="save">
+</form>
+{% endblock %}
+
