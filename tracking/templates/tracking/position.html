@@ -24,6 +24,7 @@ table, th, td {
 			<th>Date Seeded</th>
 			<th>Date Uncovered</th>
 			<th>Date Harvested</th>
+			<th>Edit</th>
 			<th>Harvest?</th>
 		</tr>
 		{% for position in position_data %}
@@ -36,6 +37,7 @@ table, th, td {
 				<td>{{ position.date_seeded }}</td>
 				<td>{{ position.date_uncovered }}</td>
 				<td>{{ position.date_harvested }}</td>
+				<td><input type="button" onclick="alert('Edit?')" value="Edit"></td>
 				<td><input type="button" onclick="alert('Harvest?')" value="Harvest"></td>
 			</tr>
 		{% endfor %}
