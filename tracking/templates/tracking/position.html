@@ -37,8 +37,10 @@ table, th, td {
 				<td>{{ position.date_seeded }}</td>
 				<td>{{ position.date_uncovered }}</td>
 				<td>{{ position.date_harvested }}</td>
-				<td><input type="button" onclick="alert('Edit?')" value="Edit"></td>
-				<td><input type="button" onclick="alert('Harvest?')" value="Harvest"></td>
+				<td><form action="/tracking/{{ position.level.unit.farm.id }}/{{ position.level.unit.id }}/{{ position.level.id }}/{{ position.id }}/edit_flat/" method="post" name="editflat">{% csrf_token %}
+					<input type="submit" value="Edit"></form></td>
+				<td><form action="/tracking/{{ position.level.unit.farm.id }}/{{ position.level.unit.id }}/{{ position.level.id }}/{{ position.id }}/harvest/" method="post" name="harvestflat">{% csrf_token %}
+					<input type="submit" value="Harvest"></form></td>
 			</tr>
 		{% endfor %}
 	</table>
@@ -48,18 +50,18 @@ table, th, td {
 
 <h3>Add Flat</h3>
 <div id="addflat">
-<form action="/" method="post" name="flatform">
-	<table class="flat_form_table">
-		<tr><th><label for="id_addflat">Postion</label></th><td><textarea cols="20" id="id_addflat" name="flat" rows="1"></textarea></td></tr>
-		<tr><th><label for="id_addflat">Kind</label></th><td><textarea cols="20" id="id_addflat" name="flat" rows="1"></textarea></td></tr>
-		<tr><th><label for="id_addflat">Variety</label></th><td><textarea cols="20" id="id_addflat" name="flat" rows="1"></textarea></td></tr>
-		<tr><th><label for="id_addflat">Seed Volume</label></th><td><textarea cols="20" id="id_addflat" name="flat" rows="1"></textarea></td></tr>
-		<tr><th><label for="id_addflat">Supplier</label></th><td><textarea cols="20" id="id_addflat" name="flat" rows="1"></textarea></td></tr>
-		<tr><th><label for="id_addflat">Date Seeded</label></th><td><input type="date" name="date_seededed"></td></tr>
-		<tr><th><label for="id_addflat">Date Uncovered</label></th><td><input type="date" name="date_uncovered"></td></tr>
-		<tr><th><label for="id_addflat">Date of Harvest</label></th><td><input type="date" name="date_harvested"></td></tr>
-		<tr><th><input type="submit" value="Insert Flat"></th></tr>
-	</table>
+	<form action="" method="post" name="addflat">{% csrf_token %}
+		<table class="flat_form_table">
+			<tr><th><label for="id_addflat">Position</label></th><td><textarea cols="20" id="id_addflat" name="position" rows="1"></textarea></td></tr>
+			<tr><th><label for="id_addflat">Kind</label></th><td><textarea cols="20" id="id_addflat" name="kind" rows="1"></textarea></td></tr>
+			<tr><th><label for="id_addflat">Variety</label></th><td><textarea cols="20" id="id_addflat" name="variety" rows="1"></textarea></td></tr>
+			<tr><th><label for="id_addflat">Seed Volume</label></th><td><textarea cols="20" id="id_addflat" name="seed_volume" rows="1"></textarea></td></tr>
+			<tr><th><label for="id_addflat">Supplier</label></th><td><textarea cols="20" id="id_addflat" name="supplier" rows="1"></textarea></td></tr>
+			<tr><th><label for="id_addflat">Date Seeded</label></th><td><input type="date" id="id_addflat" name="date_seeded"></td></tr>
+			<tr><th><label for="id_addflat">Date Uncovered</label></th><td><input type="date" id="id_addflat" name="date_uncovered"></td></tr>
+			<tr><th><label for="id_addflat">Date of Harvest</label></th><td><input type="date" id="id_addflat" name="date_harvested"></td></tr>
+			<tr><th><input type="submit" value="Insert Flat"></th></tr>
+		</table>
 	</form>
 </div>
 </body>

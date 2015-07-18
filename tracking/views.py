@@ -2,6 +2,7 @@ from django.shortcuts import render, render_to_response
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import RequestContext, loader
 from django.forms import ModelForm
+from django.utils import timezone
 
 from .models import Farm, Unit, Level, Position, FlatForm
 
@@ -25,30 +26,41 @@ def levels(request, farm_address, unit_id):
 	# return HttpResponse("You're looking at the levels of Unit: %s, located at: %s." % (Farm.objects.get(pk=farm_address).unit_set.get(pk=unit_id), Farm.objects.get(pk=farm_address)))
 
 def positions(request, farm_address, unit_id, level_id):
-	position_data = Farm.objects.get(pk=farm_address).unit_set.get(pk=unit_id).level_set.get(pk=level_id).position_set.all()
-	context = {'position_data': position_data}
-	return render(request, 'tracking/position.html', context)
-
-def add_flat(request):
 	if request.method == 'POST':
-		form = FlatForm(None)
-		if form.is_valid():
-			print "Hello"
-			form.save()
-			return render(request, 'tracking/position.html')
+		pos = request.POST['position']
+		kind = request.POST['kind']
+		var = request.POST['variety']
+		vol = request.POST['seed_volume']
+		sup = request.POST['supplier']
+		ds = request.POST['date_seeded']
+		du = request.POST['date_uncovered']
+		dh = request.POST['date_harvested']
+		new_pos = Position(id=1,
+							tray_tag=pos,
+							kind=kind,
+							variety=var,
+							seed_volume=vol,
+							supplier=sup,
+							date_seeded=ds,
+							date_uncovered=du,
+							date_harvested=dh,
+							level=Farm.objects.get(pk=farm_address).unit_set.get(pk=unit_id).level_set.get(pk=level_id))
+		new_pos.save()
+		position_data = Farm.objects.get(pk=farm_address).unit_set.get(pk=unit_id).level_set.get(pk=level_id).position_set.all()
+		context = {'position_data': position_data}
+		return render(request, 'tracking/position.html',context)
 	else:
-		form = FlatForm()
-	return render_to_response('tracking/insert_flat.html', {'form': form})
+		position_data = Farm.objects.get(pk=farm_address).unit_set.get(pk=unit_id).level_set.get(pk=level_id).position_set.all()
+		context = {'position_data': position_data}
+		return render(request, 'tracking/position.html', context)
 
 def edit_flat(request, farm_address, unit_id, level_id, position_id):
 	if request.method == 'POST':
-		form = FlatForm(request.POST, Farm.objects.get(pk=farm_address).unit_set.get(pk=unit_id).level_set.get(pk=level_id).position_set.get(pk=position_id))
-		if form.is_valid():
-			print "Hello World"
-			form.save()
-			return HttpResponseRedirect('tracking/{{ farm_address }}/{{ unit_id }}/{{ level_id }}')
-		else:
-			return render_to_response('tracking/edit_flat.html', {'form': form})
+		return render(request, 'tracking/edit_flat.html')
+
+def harvest_flat(request, farm_address, unit_id, level_id, position_id):
+	# if request.method == 'POST':
+	return render(request, 'tracking/harvest_flat.html')
 # def insert_new_flat(request):
 # 	if request.method == 'POST':
 # 		new_flat = NewFlatForm(request.POST)
