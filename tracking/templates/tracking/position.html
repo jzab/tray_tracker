@@ -17,6 +17,7 @@ table, th, td {
 	<table>
 		<tr>
 			<th>Position</th>
+			<th>Tray Tag</th>
 			<th>Kind</th>
 			<th>Variety</th>
 			<th>Seed Volume (g)</th>
@@ -29,6 +30,7 @@ table, th, td {
 		</tr>
 		{% for position in position_data %}
 			<tr>
+				<td>{{ position.id }}</td>
 				<td>{{ position.tray_tag }}</td>
 				<td>{{ position.kind }}</td>
 				<td>{{ position.variety }}</td>
@@ -50,9 +52,9 @@ table, th, td {
 
 <h3>Add Flat</h3>
 <div id="addflat">
-	<form action="" method="post" name="addflat">{% csrf_token %}
+	<form action="/tracking/{{ level.unit.farm.id }}/{{ level.unit.id }}/{{ level.id }}/" method="post" name="addflat">{% csrf_token %}
 		<table class="flat_form_table">
-			<tr><th><label for="id_addflat">Position</label></th><td><textarea cols="20" id="id_addflat" name="position" rows="1"></textarea></td></tr>
+			<tr><th><label for="id_addflat">Tray Tag</label></th><td><textarea cols="20" id="id_addflat" name="tray_tag" rows="1"></textarea></td></tr>
 			<tr><th><label for="id_addflat">Kind</label></th><td><textarea cols="20" id="id_addflat" name="kind" rows="1"></textarea></td></tr>
 			<tr><th><label for="id_addflat">Variety</label></th><td><textarea cols="20" id="id_addflat" name="variety" rows="1"></textarea></td></tr>
 			<tr><th><label for="id_addflat">Seed Volume</label></th><td><textarea cols="20" id="id_addflat" name="seed_volume" rows="1"></textarea></td></tr>

@@ -18,6 +18,11 @@
     <![endif]-->
   </head>
   <body>
-    <h1>Editing Flat</h1>
+    <h1>Editing Flat {{ pos.tray_tag }}</h1>
+    <form action="/tracking/{{ pos.level.unit.farm.id }}/{{ pos.level.unit.id }}/{{ pos.level.id }}/" method="post" name="editflat">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <input type="submit" value="Submit">
+    </form>
   </body>
 </html>
