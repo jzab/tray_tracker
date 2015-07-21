@@ -85,8 +85,18 @@ def edit_flat(request, farm_address, unit_id, level_id, position_id):
 	return render(request,'tracking/edit_flat.html',context)
 
 def harvest_flat(request, farm_address, unit_id, level_id, position_id):
+	pos = Farm.objects.get(pk=farm_address).unit_set.get(pk=unit_id).level_set.get(pk=level_id).position_set.get(pk=position_id)
+	context = {'pos':pos}
+	variables = RequestContext(request, context)
+	if request.method == 'POST':
+		answer = request.POST.get('confirm', None)
+		if answer == "yes":
+			return render_to_response('tracking/position.html',variables)
+		if answer == "no":
+			return render_to_response('tracking/position.html',variables)
 	# if request.method == 'POST':
-	return render(request, 'tracking/harvest_flat.html')
+	else:
+		return render(request, 'tracking/harvest_flat.html',context)
 # def insert_new_flat(request):
 # 	if request.method == 'POST':
 # 		new_flat = NewFlatForm(request.POST)

@@ -17,7 +17,15 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
   </head>
+
   <body>
-    <h1>Are you sure you want to Harvest this flat?</h1>
+    <h1>Are you sure you want to Harvest flat {{ pos.tray_tag }}?</h1>
+    <form action="/tracking/{{ pos.level.unit.farm.id }}/{{ pos.level.unit.id }}/{{ pos.level.id }}/" method="get" name="harvest_flat">
+      <input type="radio" name="confirm" value="yes" checked>Yes
+      <br>
+      <input type="radio" name="confirm" value="no">No
+      <br>
+      <input type="submit" value="Submit">
+    </form>   
   </body>
 </html>

@@ -39,9 +39,9 @@ table, th, td {
 				<td>{{ position.date_seeded }}</td>
 				<td>{{ position.date_uncovered }}</td>
 				<td>{{ position.date_harvested }}</td>
-				<td><form action="/tracking/{{ position.level.unit.farm.id }}/{{ position.level.unit.id }}/{{ position.level.id }}/{{ position.id }}/edit_flat/" method="post" name="editflat">{% csrf_token %}
+				<td><form action="/tracking/{{ position.level.unit.farm.id }}/{{ position.level.unit.id }}/{{ position.level.id }}/{{ position.id }}/edit_flat/" method="get" name="editflat">{% csrf_token %}
 					<input type="submit" value="Edit"></form></td>
-				<td><form action="/tracking/{{ position.level.unit.farm.id }}/{{ position.level.unit.id }}/{{ position.level.id }}/{{ position.id }}/harvest/" method="post" name="harvestflat">{% csrf_token %}
+				<td><form action="/tracking/{{ position.level.unit.farm.id }}/{{ position.level.unit.id }}/{{ position.level.id }}/{{ position.id }}/harvest_flat/" method="get" name="harvest_flat">{% csrf_token %}
 					<input type="submit" value="Harvest"></form></td>
 			</tr>
 		{% endfor %}
