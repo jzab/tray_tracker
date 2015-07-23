@@ -3,6 +3,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.template import RequestContext, loader
 from django.forms import ModelForm
 from django.utils import timezone
+from django.core.urlresolvers import reverse
 
 from .models import Farm, Unit, Level, Position, FlatForm
 from .forms import FlatForm
@@ -48,7 +49,8 @@ def positions(request, farm_address, unit_id, level_id):
 							level=Farm.objects.get(pk=farm_address).unit_set.get(pk=unit_id).level_set.get(pk=level_id))
 		new_pos.save()
 		position_data = Farm.objects.get(pk=farm_address).unit_set.get(pk=unit_id).level_set.get(pk=level_id).position_set.all()
-		context = {'position_data': position_data, 'tag':tag,'kind':kind,'var':var,'vol':vol,'sup':sup,'ds':ds,'du':du,'dh':dh,'current_level':current_level}
+		context = {'position_data': position_data, 'tag':tag,'kind':kind,'var':var,'vol':vol,'sup':sup,'ds':ds,'du':du,'dh':dh,'current_level':current_level,
+				'length':range(current_level.tray_slots)}
 		return render(request, 'tracking/position.html',context)
 	else:
 		position_data = Farm.objects.get(pk=farm_address).unit_set.get(pk=unit_id).level_set.get(pk=level_id).position_set.all()
@@ -81,8 +83,12 @@ def edit_flat(request, farm_address, unit_id, level_id, position_id):
 			pos.date_seeded = form.cleaned_data['date_seeded']
 			pos.date_uncovered = form.cleaned_data['date_uncovered']
 			pos.date_harvested = form.cleaned_data['date_harvested']
-			return render_to_response('tracking/position.html', variables)
+			pos.save()
+			return HttpResponseRedirect(reverse('tracking:edited'))
 	return render(request,'tracking/edit_flat.html',context)
+
+def edited(request, farm_address, unit_id, level_id, position_id):
+	return HttpResponseRedirect('tracking:positions')
 
 def harvest_flat(request, farm_address, unit_id, level_id, position_id):
 	pos = Farm.objects.get(pk=farm_address).unit_set.get(pk=unit_id).level_set.get(pk=level_id).position_set.get(pk=position_id)

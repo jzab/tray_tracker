@@ -17,4 +17,5 @@ urlpatterns = [
 		url(r'^(?P<farm_address>[0-9]+)/(?P<unit_id>[0-9]+)/(?P<level_id>[0-9]+)/(?P<position_id>[0-9]+)/edit_flat/$', views.edit_flat, name='edit_flat'),
 		# ex: user clicks on harvest button next to a flat
 		url(r'^(?P<farm_address>[0-9]+)/(?P<unit_id>[0-9]+)/(?P<level_id>[0-9]+)/(?P<position_id>[0-9]+)/harvest_flat/$', views.harvest_flat, name='harvest_flat'),
+		url(r'^(?P<farm_address>[0-9]+)/(?P<unit_id>[0-9]+)/(?P<level_id>[0-9]+)/edited/$', views.edited, name='edited'),
 		]

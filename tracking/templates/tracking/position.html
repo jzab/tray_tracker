@@ -2,19 +2,41 @@
 <html>
 <head>
 <title>Flats</title>
-<h1 align="center">Flats</h1>
-<style>
-table, th, td {
-	border: 1px solid black;
-	text-align: center;
-	font-size: 12pt;
-}
+
+<style type="text/css">
+	h1 {
+		color: green;
+		text-align: center;
+		font-family: "Helvetica";
+		text-decoration: underline;
+	}
+
+	h2 {
+		text-align: center;
+		font-family: "Helvetica";
+	}
+	table.pos {
+		border-collapse: collapse;
+		empty-cells: hide;
+		margin: 20px;
+		padding-bottom: 30px;
+	}
+	table.flat_form_table {
+		border-collapse: collapse;
+	}
+	table, th, td {
+		border: 2px solid black;
+		text-align: center;
+		font-size: 12pt;
+		font-family: "Helvetica";
+	}
 </style>
 </head>
 
 <body>
+<h1>Flats</h1>
 {% if position_data %}
-	<table>
+	<table class="pos">
 		<tr>
 			<th>Position</th>
 			<th>Tray Tag</th>
@@ -50,10 +72,10 @@ table, th, td {
 	<p>No positions are available.</p>
 {% endif %}
 
-<h3>Add Flat</h3>
+<h2>Add Flat</h2>
 <div id="addflat">
 	<form action="/tracking/{{ level.unit.farm.id }}/{{ level.unit.id }}/{{ level.id }}/" method="post" name="addflat">{% csrf_token %}
-		<table class="flat_form_table">
+		<table class="flat_form_table" align=center>
 			<tr><th><label for="id_addflat">Tray Tag</label></th><td><textarea cols="20" id="id_addflat" name="tray_tag" rows="1"></textarea></td></tr>
 			<tr><th><label for="id_addflat">Kind</label></th><td><textarea cols="20" id="id_addflat" name="kind" rows="1"></textarea></td></tr>
 			<tr><th><label for="id_addflat">Variety</label></th><td><textarea cols="20" id="id_addflat" name="variety" rows="1"></textarea></td></tr>
